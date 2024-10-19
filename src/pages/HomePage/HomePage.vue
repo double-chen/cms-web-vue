@@ -1,7 +1,11 @@
 <template>
-  <div>123</div>
+  <div>
+    <HomeHeader />
+    <HomeContent />
+  </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import HomeHeader from './components/HomeHeader/HomeHeader.vue'
+import HomeContent from './components/HomeConent/HomeContent.vue'
 </script>

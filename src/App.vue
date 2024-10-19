@@ -1,32 +1,14 @@
+<template>
+  <PageHeader />
+  <RouterView />
+  <PageFooter />
+</template>
+
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import PageHeader from './components/PageHeader/PageHeader.vue'
+import PageFooter from './components/PageFooter/PageFooter.vue'
 </script>
-
-<template>
-  <!-- <header>
-    <img
-      alt="Vue logo"
-      class="logo"
-      src="@/assets/logo.svg"
-      width="125"
-      height="125"
-    />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header> -->
-
-  <PageHeader />
-
-  <RouterView />
-</template>
 
 <style scoped>
 header {
