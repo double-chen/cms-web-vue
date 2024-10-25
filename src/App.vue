@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
 import PageHeader from './components/PageHeader/PageHeader.vue'
 import PageFooter from './components/PageFooter/PageFooter.vue'
 </script>

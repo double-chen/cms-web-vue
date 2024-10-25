@@ -38,7 +38,7 @@
       </svg>
     </div>
     <div class="relative grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-      <div
+      <!-- <div
         class="flex flex-col justify-between overflow-hidden text-left transition-shadow duration-200 bg-white rounded shadow-xl group hover:shadow-2xl"
       >
         <div class="p-5">
@@ -285,7 +285,60 @@
         <div
           class="w-full h-1 ml-auto duration-300 origin-left transform scale-x-0 bg-deep-purple-accent-400 group-hover:scale-x-100"
         ></div>
+      </div> -->
+
+      <div
+        class="flex flex-col justify-between overflow-hidden text-left transition-shadow duration-200 bg-white rounded shadow-xl group hover:shadow-2xl"
+        v-for="article in articleList"
+        :key="article.id"
+      >
+        <div class="p-5">
+          <div
+            class="flex items-center justify-center w-10 h-10 mb-4 rounded-full bg-indigo-50"
+          >
+            <svg
+              class="w-8 h-8 text-deep-purple-accent-400"
+              stroke="currentColor"
+              viewBox="0 0 52 52"
+            >
+              <polygon
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                fill="none"
+                points="29 13 14 29 25 29 23 39 38 23 27 23"
+              ></polygon>
+            </svg>
+          </div>
+          <p class="mb-2 font-bold">{{ article.title }}</p>
+          <p class="text-sm leading-5 text-gray-900">
+            {{ article.summary }}
+          </p>
+        </div>
+        <div
+          class="w-full h-1 ml-auto duration-300 origin-left transform scale-x-0 bg-deep-purple-accent-400 group-hover:scale-x-100"
+        ></div>
       </div>
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import { getArticleList } from '@/api/modules/content'
+import { type Content } from '@/api/interface/index'
+
+const articleList = ref<Content.ResArticle[]>()
+
+async function init() {
+  const params = {
+    tagIds: ['1'],
+    pageNum: 1,
+    pageSize: 8,
+  }
+  const res = await getArticleList(params)
+
+  articleList.value = res.data.list
+}
+init()
+</script>
