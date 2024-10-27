@@ -2,7 +2,7 @@ import Mock from 'mockjs'
 
 export default function initLocalMock() {
   // 文章列表
-  Mock.mock('/cms/article/list', 'post', options => {
+  Mock.mock(/.*\/article\/list/, 'post', options => {
     const query = JSON.parse(options.body)
     console.log('options', options)
     const key = `list|${query.pageSize}`
@@ -65,36 +65,38 @@ export default function initLocalMock() {
   })
 
   // 文章分类列表
-  Mock.mock('/category/list', 'post', options => {
+  Mock.mock(/.*\/category\/list/, 'post', options => {
     const query = options.body
     if (query.parentId) {
+      const data = Mock.mock({
+        'list|4': [
+          {
+            id: '@string(number,18)',
+            name: '@ctitle(5, 10)',
+            parentId: '@string(number,18)',
+            isInMenu: '@boolean()',
+            isLeaf: '@boolean()',
+          },
+        ],
+        pageNum: Number(query.pageNum),
+        pageSize: Number(query.pageSize),
+        total: 4,
+      })
+
       return {
         code: 200,
-        data: {
-          'list|4': [
-            {
-              id: '@string(number,18)',
-              name: '@ctitle(5, 10)',
-              parentId: '@string(number,18)',
-              isInMenu: '@boolean()',
-              isLeaf: '@boolean()',
-            },
-          ],
-          pageNum: Number(query.pageNum),
-          pageSize: Number(query.pageSize),
-          total: 4,
-        },
+        data,
         msg: '成功',
       }
     }
 
     return {
       code: 200,
-      data: {
+      data: Mock.mock({
         'list|4': [
           {
             id: '@string(number,18)',
-            name: '@ctitle(5, 10)',
+            name: '@ctitle(2, 2)',
             parentId: '@string(number,18)',
             isInMenu: '@boolean()',
             'children|4': [
@@ -110,7 +112,7 @@ export default function initLocalMock() {
         pageNum: Number(query.pageNum),
         pageSize: Number(query.pageSize),
         total: 4,
-      },
+      }),
       msg: '成功',
     }
   })

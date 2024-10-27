@@ -10,7 +10,7 @@ const router = createRouter({
       component: HomePage,
     },
     {
-      path: '/overview',
+      path: '/overview/:id',
       name: 'overview',
       component: () => import('../pages/OverviewPage/OverviewPage.vue'),
     },

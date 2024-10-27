@@ -32,9 +32,9 @@
             >
           </a>
           <ul class="flex items-center hidden space-x-8 lg:flex">
-            <li>
+            <!-- <li>
               <a
-                href="/"
+                href="/overview"
                 aria-label="character"
                 title="character"
                 class="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
@@ -43,7 +43,7 @@
             </li>
             <li>
               <a
-                href="/"
+                href="/overview"
                 aria-label="event"
                 title="event"
                 class="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
@@ -52,7 +52,7 @@
             </li>
             <li>
               <a
-                href="/"
+                href="/overview"
                 aria-label="war"
                 title="war"
                 class="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
@@ -61,11 +61,20 @@
             </li>
             <li>
               <a
-                href="/"
+                href="/overview"
                 aria-label="game"
                 title="game"
                 class="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
                 >游戏</a
+              >
+            </li> -->
+            <li v-for="category in categoryList" :key="category.id">
+              <a
+                :href="`/overview/${category.id}`"
+                :aria-label="category.name"
+                :title="category.name"
+                class="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
+                >{{ category.name }}</a
               >
             </li>
 
@@ -249,6 +258,23 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { getCategoryList } from '@/api/modules/content'
+import { type Content } from '@/api/interface/index'
 
 const isMenuOpen = ref(true)
+
+const categoryList = ref<Content.ResCategory[]>()
+
+async function init() {
+  const params = {
+    tagIds: ['1'],
+    pageNum: 1,
+    pageSize: 8,
+  }
+  const res = await getCategoryList(params)
+  console.log('getCategoryList:res', res)
+
+  categoryList.value = res.data.list
+}
+init()
 </script>
