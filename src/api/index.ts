@@ -3,7 +3,7 @@ import { type ResultData } from '@/api/interface'
 
 const config = {
   // 默认地址请求地址，可在 .env.** 文件中修改
-  baseURL: '/',
+  baseURL: import.meta.env.VITE_APP_BASE_URL,
   // 设置超时时间
   timeout: 30000,
   // 跨域时候允许携带凭证
@@ -15,6 +15,11 @@ class RequestHttp {
   public constructor(config: AxiosRequestConfig) {
     // instantiation
     this.service = axios.create(config)
+
+    this.service.interceptors.response.use(response => {
+      const { data } = response
+      return data
+    })
   }
 
   /**

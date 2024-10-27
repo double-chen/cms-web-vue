@@ -337,6 +337,7 @@ async function init() {
     pageSize: 8,
   }
   const res = await getArticleList(params)
+  console.log('getArticleList:res', res)
 
   articleList.value = res.data.list
 }

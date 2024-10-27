@@ -9,7 +9,7 @@ import http from '@/api'
 export const getArticleList = (params: Content.ReqArticleParams) => {
   return http.post<ResPage<Content.ResArticle>>(PORT1 + `/article/list`, params)
 }
-
+// 获取文章详情
 export const getArticleById = (params: any) => {
   return http.get<Content.ResArticle>(PORT1 + `/article/detail`, params)
 }
