@@ -5,7 +5,7 @@
     <p
       class="mb-2 text-xs font-semibold tracking-wide text-gray-600 uppercase sm:text-center"
     >
-      20 Nov 2020
+      {{ article?.createTime }}
     </p>
     <div class="max-w-xl mb-5 md:mx-auto sm:text-center lg:max-w-2xl">
       <div class="mb-4">
@@ -14,12 +14,11 @@
           aria-label="Article"
           class="inline-block max-w-lg font-sans text-3xl font-extrabold leading-none tracking-tight text-black transition-colors duration-200 hover:text-deep-purple-accent-700 sm:text-4xl"
         >
-          The quick, brown fox jumps over a lazy dog
+          {{ article?.title }}
         </a>
       </div>
       <p class="text-base text-gray-700 md:text-lg">
-        Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-        accusantium doloremque rem aperiam, eaque ipsa quae.
+        {{ article?.content }}
       </p>
     </div>
     <div class="mb-10 sm:text-center">
@@ -35,10 +34,33 @@
           href="/"
           aria-label="Author"
           class="font-semibold text-gray-800 transition-colors duration-200 hover:text-deep-purple-accent-700"
-          >Vasile Melinte</a
+          >{{ article?.title }}</a
         >
-        <p class="text-sm font-medium leading-4 text-gray-600">Author</p>
+        <p class="text-sm font-medium leading-4 text-gray-600">作者</p>
       </div>
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useRoute } from 'vue-router'
+import { getArticleById } from '@/api/modules/content'
+import { type Content } from '@/api/interface/index'
+
+const route = useRoute()
+const id = route.params.id as string
+
+const article = ref<Content.ResArticle>()
+
+async function init() {
+  const params = {
+    id,
+  }
+  const res = await getArticleById(params)
+  console.log('getArticleById:res', res)
+
+  article.value = res.data
+}
+init()
+</script>

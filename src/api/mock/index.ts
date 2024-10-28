@@ -38,17 +38,17 @@ export default function initLocalMock() {
   })
 
   // 文章详情
-  Mock.mock('/article/detail', 'get', options => {
+  Mock.mock(/.*\/article\/detail/, 'get', options => {
     // 从请求 URL 中提取参数
     const url = new URL(options.url, 'http://example.com')
     const id = url.searchParams.get('id')
 
     return {
       code: 200,
-      data: {
+      data: Mock.mock({
         id: id,
         title: '@ctitle(5, 10)',
-        content: '',
+        content: '@cparagraph(100, 200)',
         summary: '@cparagraph(3, 5)',
         categoryId: '@string(number,18)',
         categoryName: '@ctitle(2, 4)',
@@ -59,7 +59,7 @@ export default function initLocalMock() {
         address: '@city(true)',
         createTime: '@date @time',
         updateTime: '@date @time',
-      },
+      }),
       msg: '成功',
     }
   })
