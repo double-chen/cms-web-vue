@@ -15,7 +15,7 @@ const router = createRouter({
       component: () => import('../pages/OverviewPage/OverviewPage.vue'),
     },
     {
-      path: '/detail',
+      path: '/detail/:id',
       name: 'detail',
       component: () => import('../pages/DetailPage/DetailPage.vue'),
     },

@@ -126,7 +126,11 @@
         </p>
       </div> -->
 
-      <div v-for="article in articleList" :key="article.id">
+      <div
+        v-for="article in articleList"
+        :key="article.id"
+        @click="handleArticleClick(article)"
+      >
         <img
           class="object-cover w-full h-56 mb-6 rounded shadow-lg md:h-64 xl:h-80"
           :src="article.thumbnail"
@@ -163,13 +167,23 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { getArticleList } from '@/api/modules/content'
 import { type Content } from '@/api/interface/index'
 
 const route = useRoute()
+const router = useRouter()
 const id = route.params.id as string
 const articleList = ref<Content.ResArticle[]>()
+
+function handleArticleClick(article: Content.ResArticle) {
+  router.push({
+    name: 'detail',
+    params: {
+      id: article.id,
+    },
+  })
+}
 
 async function init() {
   const params = {
