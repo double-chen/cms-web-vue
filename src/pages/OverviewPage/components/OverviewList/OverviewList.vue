@@ -41,7 +41,7 @@
       </p>
     </div>
     <div class="grid gap-8 row-gap-5 mb-8 lg:grid-cols-3 lg:row-gap-8">
-      <div>
+      <!-- <div>
         <img
           class="object-cover w-full h-56 mb-6 rounded shadow-lg md:h-64 xl:h-80"
           src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
@@ -124,6 +124,20 @@
           Sed ut perspiciatis unde omnis iste natus error sit voluptatem
           accusantium.
         </p>
+      </div> -->
+
+      <div v-for="article in articleList" :key="article.id">
+        <img
+          class="object-cover w-full h-56 mb-6 rounded shadow-lg md:h-64 xl:h-80"
+          :src="article.thumbnail"
+          alt=""
+        />
+        <p class="mb-2 text-xl font-bold leading-none sm:text-2xl">
+          {{ article.title }}
+        </p>
+        <p class="text-gray-700">
+          {{ article.summary }}
+        </p>
       </div>
     </div>
     <div class="text-center">
@@ -146,3 +160,27 @@
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useRoute } from 'vue-router'
+import { getArticleList } from '@/api/modules/content'
+import { type Content } from '@/api/interface/index'
+
+const route = useRoute()
+const id = route.params.id as string
+const articleList = ref<Content.ResArticle[]>()
+
+async function init() {
+  const params = {
+    categoryId: id,
+    pageNum: 1,
+    pageSize: 9,
+  }
+  const res = await getArticleList(params)
+  console.log('getArticleList:res', res)
+
+  articleList.value = res.data.list
+}
+init()
+</script>

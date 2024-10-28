@@ -181,7 +181,7 @@
               </div>
               <nav>
                 <ul class="space-y-4">
-                  <li>
+                  <!-- <li>
                     <a
                       href="/"
                       aria-label="character"
@@ -215,6 +215,18 @@
                       title="game"
                       class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                       >游戏</a
+                    >
+                  </li> -->
+
+                  <li>
+                    <a
+                      v-for="category in categoryList"
+                      :key="category.id"
+                      :href="`/overview/${category.id}`"
+                      :aria-label="category.name"
+                      :title="category.name"
+                      class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                      >{{ category.name }}</a
                     >
                   </li>
 

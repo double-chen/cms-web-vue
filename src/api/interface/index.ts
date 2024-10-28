@@ -30,6 +30,7 @@ export namespace Content {
     title?: string // 标题
     startTime?: string // 创建时间
     endTime?: string // 更新时间
+    categoryId?: string // 分类id
     tagIds?: string[] // 标签id
   }
   export interface ResArticle {
