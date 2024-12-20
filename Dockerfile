@@ -5,13 +5,16 @@ FROM node:18 AS build
 WORKDIR /app
 
 # 复制 package.json 和 package-lock.json（如果有）
-COPY package*.json ./
+COPY package*.json ./ 
+
+# 设置 npm 镜像源
+RUN npm config set registry https://registry.npmmirror.com
 
 # 安装项目依赖
 RUN npm install
 
 # 复制项目文件到容器中
-COPY . .
+COPY . ./
 
 # 构建项目
 RUN npm run build
