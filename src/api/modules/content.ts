@@ -16,10 +16,7 @@ export const getArticleById = (params: any) => {
 
 // 获取文章分类列表
 export const getCategoryList = (params: any) => {
-  return http.post<ResPage<Content.ResCategory>>(
-    PORT1 + `/category/list`,
-    params,
-  )
+  return http.post<Content.ResCategory[]>(PORT1 + `/category/list`, params)
 }
 
 // 获取文章标签列表

@@ -279,14 +279,14 @@ const categoryList = ref<Content.ResCategory[]>()
 
 async function init() {
   const params = {
-    tagIds: ['1'],
+    // tagIds: ['tag1'],
     pageNum: 1,
     pageSize: 8,
   }
   const res = await getCategoryList(params)
   console.log('getCategoryList:res', res)
 
-  categoryList.value = res.data.list
+  categoryList.value = res.data
 }
 init()
 </script>

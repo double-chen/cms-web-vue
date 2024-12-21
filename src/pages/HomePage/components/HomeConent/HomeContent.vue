@@ -332,7 +332,7 @@ const articleList = ref<Content.ResArticle[]>()
 
 async function init() {
   const params = {
-    tagIds: ['1'],
+    //tagIds: ['1'],
     pageNum: 1,
     pageSize: 8,
   }
