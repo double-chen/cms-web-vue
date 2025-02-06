@@ -1,10 +1,22 @@
-before_script:
-  - docker info
-
 stages:
   - build
+  - deploy
 
 build:
   stage: build
   script:
     - docker build -t cms-frontend-manage:latest .
+
+build:
+  stage: deploy
+  script:
+    # 停止并删除旧容器（如果存在）
+    - |
+      if [ $(docker ps -q -f name=cms-server-node-frontend-web) ]; then
+        docker stop cms-frontend-web
+        docker rm cms-frontend-web
+      else
+        echo "No existing container to stop or remove."
+      fi
+    # 运行新的 Docker 容器
+    - docker run -d --name cms-frontend-web --network my-custom-network cms-frontend-manage:latest
