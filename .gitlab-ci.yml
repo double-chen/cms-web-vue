@@ -7,7 +7,7 @@ build:
   script:
     - docker build -t cms-frontend-web:latest .
 
-build:
+deploy:
   stage: deploy
   script:
     # 停止并删除旧容器（如果存在）
