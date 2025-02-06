@@ -12,7 +12,7 @@ build:
   script:
     # 停止并删除旧容器（如果存在）
     - |
-      if [ $(docker ps -q -f name=cms-server-node-frontend-web) ]; then
+      if [ $(docker ps -q -f name=cms-frontend-web) ]; then
         docker stop cms-frontend-web
         docker rm cms-frontend-web
       else
