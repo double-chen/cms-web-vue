@@ -68,32 +68,9 @@ export default function initLocalMock() {
   Mock.mock(/.*\/category\/list/, 'post', options => {
     const query = options.body
     if (query.parentId) {
-      const data = Mock.mock({
-        'list|4': [
-          {
-            id: '@string(number,18)',
-            name: '@ctitle(5, 10)',
-            parentId: '@string(number,18)',
-            isInMenu: '@boolean()',
-            isLeaf: '@boolean()',
-          },
-        ],
-        pageNum: Number(query.pageNum),
-        pageSize: Number(query.pageSize),
-        total: 4,
-      })
-
-      return {
+      return Mock.mock({
         code: 200,
-        data,
-        msg: '成功',
-      }
-    }
-
-    return {
-      code: 200,
-      data: Mock.mock({
-        'list|4': [
+        'data|4': [
           {
             id: '@string(number,18)',
             name: '@ctitle(2, 2)',
@@ -109,12 +86,30 @@ export default function initLocalMock() {
             ],
           },
         ],
-        pageNum: Number(query.pageNum),
-        pageSize: Number(query.pageSize),
-        total: 4,
-      }),
-      msg: '成功',
+        msg: '成功',
+      })
     }
+
+    return Mock.mock({
+      code: 200,
+      'data|4': [
+        {
+          id: '@string(number,18)',
+          name: '@ctitle(2, 2)',
+          parentId: '@string(number,18)',
+          isInMenu: '@boolean()',
+          'children|4': [
+            {
+              id: '@string(number,18)',
+              name: '@ctitle(5, 10)',
+              parentId: '@string(number,18)',
+              isInMenu: '@boolean()',
+            },
+          ],
+        },
+      ],
+      msg: '成功',
+    })
   })
 
   // 标签列表
